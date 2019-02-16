@@ -25,5 +25,5 @@ private:
 
 int main()
 {
-  TimeToRun("main");
+  TimeToRun("main"); // check user
 }
