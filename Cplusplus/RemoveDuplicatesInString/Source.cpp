@@ -25,7 +25,7 @@ private:
     char const* str = nullptr;
 };
 
-std::string generateABC(size_t length)
+std::string generateXYZ(size_t length)
 {
     std::random_device rd;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
@@ -37,13 +37,13 @@ std::string generateABC(size_t length)
         switch (dis(gen))
         {
         case 1:
-            s.push_back('A');
+            s.push_back('X');
             break;
         case 2:
-            s.push_back('B');
+            s.push_back('Y');
             break;
         case 3:
-            s.push_back('C');
+            s.push_back('Z');
             break;
         }
     }
@@ -124,9 +124,9 @@ void noSTL(const char*S, char* sol)
 
 int main()
 {
-    std::string arg1 = generateABC(100000);
-    std::string sol1 = original(arg1);
+    std::string arg = generateXYZ(100000);
+    std::string sol1 = original(arg);
     char sol[100000];
-    noSTL(arg1.c_str(), sol);
+    noSTL(arg.c_str(), sol);
     assert(strcmp(sol, sol1.c_str())==0);
 }
