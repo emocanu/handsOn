@@ -1,1 +1,3 @@
-# handsOn
+### handsOn
+
+Various exercises
