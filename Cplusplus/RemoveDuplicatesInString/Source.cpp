@@ -3,6 +3,7 @@
 #include <string>
 #include <random>
 #include <cassert>
+#include <stack>
 
 struct TimeToRun
 {
@@ -85,6 +86,34 @@ std::string original(std::string &S)
     return str;
 }
 
+std::string stack(std::string &S)
+{
+    TimeToRun t("Stack solution");
+
+    if (S.size() == 0)
+        return "";
+
+    std::stack<char>st;
+    st.push(S.at(0));
+
+    for (size_t i = 1; i < S.size(); ++i)
+    {
+        if (st.empty() || st.top() != S.at(i))
+            st.push(S.at(i));
+        else
+            st.pop();
+    }
+
+    std::string str;
+    while (!st.empty())
+    {
+        str.insert(str.begin(), st.top());
+        st.pop();
+    }
+
+    return str;
+}
+
 void noSTL(const char*S, char* sol)
 {
     TimeToRun t("Without STL");
@@ -126,6 +155,8 @@ int main()
 {
     std::string arg = generateXYZ(100000);
     std::string sol1 = original(arg);
+    std::string sol2 = stack(arg);
+    assert(sol1.compare(sol2) == 0);
     char sol[100000];
     noSTL(arg.c_str(), sol);
     assert(strcmp(sol, sol1.c_str())==0);
