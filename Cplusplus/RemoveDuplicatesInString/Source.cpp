@@ -19,7 +19,7 @@ struct TimeToRun
         using namespace std::chrono;
         moment t_end = high_resolution_clock::now();
         duration<double> time_span = duration_cast<duration<double>>(t_end - t_start);
-        std::cout << str << " time \t= " << time_span.count() << " seconds.\n";
+        std::cout << str << "\t= " << time_span.count() << " seconds.\n";
     }
 private:
     moment t_start;
@@ -55,7 +55,7 @@ std::string generateXYZ(size_t length)
 
 std::string original(std::string &S)
 {
-    TimeToRun t("Original solution");
+    TimeToRun t("Interview");
     std::string str = S;
     while (true)
     {
@@ -88,7 +88,7 @@ std::string original(std::string &S)
 
 std::string stack(std::string &S)
 {
-    TimeToRun t("Stack solution");
+    TimeToRun t("Stack\t");
 
     if (S.size() == 0)
         return "";
@@ -112,6 +112,46 @@ std::string stack(std::string &S)
     }
 
     return str;
+}
+
+std::string stringAsStack(std::string &S)
+{
+    TimeToRun t("String as stack");
+
+    if (S.size() == 0)
+        return "";
+
+    std::string str;
+    int i_str = 0;
+    int i_stack = 0;
+    str.push_back(S.at(0));
+
+    for (size_t i = 1; i < S.size(); ++i)
+    {
+        if (i_str < 0) // stack empty
+        {
+            i_str = 0;
+            str.at(i_str) = S.at(i);
+        }
+        else if (str.at(i_str) != S.at(i))
+        {
+            if (str.length() == i_str + 1)
+            {
+                str.push_back(S.at(i));
+                i_str++;
+            }
+            else
+                str.at(++i_str) = S.at(i);
+        }
+        else
+        {
+            i_str--;
+        }
+    }
+
+    if (i_str < 0)
+        return "";
+    return str.substr(0, i_str + 1);
 }
 
 void noSTL(const char*S, char* sol)
@@ -157,6 +197,8 @@ int main()
     std::string sol1 = original(arg);
     std::string sol2 = stack(arg);
     assert(sol1.compare(sol2) == 0);
+    std::string sol3 = stringAsStack(arg);
+    assert(sol2.compare(sol3) == 0);
     char sol[100000];
     noSTL(arg.c_str(), sol);
     assert(strcmp(sol, sol1.c_str())==0);
