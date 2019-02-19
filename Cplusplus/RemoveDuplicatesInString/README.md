@@ -8,7 +8,7 @@ For example, given "XYYZXZXZXY", using the rule for the first match of "YY", the
 The transformation also applies recursively, if an adjacency is created by a previous transformation, that adjacency shall be removed too.\
 Given the string: "XYZZXXY", the first rule gives "XYXXY", then "XYY", then "X".
 
-The assignment is to create a program that __efficiently__ ccomputes a string from an input string, using the above transformation.
+The assignment is to create a program that __efficiently__ computes a string from an input string, using the above transformation.
 
 #### The solutions
 
